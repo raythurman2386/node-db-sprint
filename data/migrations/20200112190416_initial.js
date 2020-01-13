@@ -25,7 +25,7 @@ exports.up = async function (knex) {
   // Resource Table
   await knex.schema.createTable('resource', tbl => {
     tbl.increments('id')
-    tbl.string('name', 128).notNullable();
+    tbl.string('name', 128).notNullable().unique();
     tbl.string('description');
   })
 };
