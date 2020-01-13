@@ -1,21 +1,21 @@
 const db = require('../db-config');
 
 // Get Projects
-function getProjects() {
-  return db('projects');
+async function getProjects() {
+  const projects = await db('projects');
+  const fixCompletes = projects.map(project => ({ ...project, completed: project.completed ? true : false }))
+  return fixCompletes;
 }
 
 // Get Project by ID
-function getProjectById(id) {
-  return db('projects as P').where({ id }).first();
-}
-
-
-function getProjectTasks(project_id) {
-  return db('task as T')
-    .join('projects as P', { 'T.project_id': 'P.id' })
-    .where({ project_id: project_id })
-    .select('P.name', 'P.description', 'T.description', 'T.completed');
+async function getProjectById(id) {
+  const project = await db('projects').where({ id }).first();
+  const tasks = await db('task').where({ project_id: id });
+  return {
+    ...project,
+    completed: project.completed ? true : false,
+    tasks: tasks.map(task => ({ ...task, completed: task.completed ? true : false }))
+  }
 }
 
 // Add Project
@@ -37,7 +37,6 @@ function deleteProject(id) {
 module.exports = {
   getProjects,
   getProjectById,
-  getProjectTasks,
   addProject,
   deleteProject
 }

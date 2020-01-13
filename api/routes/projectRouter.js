@@ -6,10 +6,7 @@ projectRouter
   .get('/', async (req, res, next) => {
     try {
       const projects = await db.getProjects();
-
-      const fixCompletes = projects.map(project => project.completed ? { ...project, completed: true } : { ...project, completed: false });
-
-      return res.status(200).json(fixCompletes);
+      return res.status(200).json(projects);
     } catch (error) {
       next(error)
     }
@@ -17,7 +14,7 @@ projectRouter
 
   .get('/:id', async (req, res, next) => {
     try {
-      const project = await db.getProjectTasks(req.params.id);
+      const project = await db.getProjectById(req.params.id);
       return res.status(200).json(project);
     } catch (error) {
       next(error);
