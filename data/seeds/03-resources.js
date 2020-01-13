@@ -1,13 +1,12 @@
 
-exports.seed = function(knex) {
+exports.seed = async function (knex) {
   // Deletes ALL existing entries
-  return knex('table_name').del()
-    .then(function () {
-      // Inserts seed entries
-      return knex('table_name').insert([
-        {id: 1, colName: 'rowValue1'},
-        {id: 2, colName: 'rowValue2'},
-        {id: 3, colName: 'rowValue3'}
-      ]);
-    });
+  await knex('resource').insert([
+    { name: 'Hammer', description: 'go caveman' },
+    { name: 'Computer', description: 'code stuff' },
+    { name: 'Car', description: 'drive somewhere' },
+    { name: 'keyboard', description: 'typy typy' },
+    { name: 'Baby Yoda', description: 'da boss' },
+    { name: 'Baby Jarjar', description: 'DO ITT!!!' },
+  ])
 };
