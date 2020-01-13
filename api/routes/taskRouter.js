@@ -5,8 +5,11 @@ taskRouter
   // retrieve tasks
   .get('/', async (req, res, next) => {
     try {
-      const tasks = await db.getTasks();
-      return res.status(200).json(tasks);
+      const tasks = await db.getTask();
+
+      const fixCompletes = tasks.map(task => task.completed ? { ...task, completed: true } : { ...task, completed: false });
+
+      return res.status(200).json(fixCompletes);
     } catch (error) {
       next(error)
     }

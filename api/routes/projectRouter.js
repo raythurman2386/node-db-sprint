@@ -6,7 +6,10 @@ projectRouter
   .get('/', async (req, res, next) => {
     try {
       const projects = await db.getProjects();
-      return res.status(200).json(projects);
+
+      const fixCompletes = projects.map(project => project.completed ? { ...project, completed: true } : { ...project, completed: false });
+
+      return res.status(200).json(fixCompletes);
     } catch (error) {
       next(error)
     }
