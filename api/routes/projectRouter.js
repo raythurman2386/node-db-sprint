@@ -15,6 +15,15 @@ projectRouter
     }
   })
 
+  .get('/:id', async (req, res, next) => {
+    try {
+      const project = await db.getProjectTasks(req.params.id);
+      return res.status(200).json(project);
+    } catch (error) {
+      next(error);
+    }
+  })
+
   // add project
   .post('/', async (req, res, next) => {
     try {
