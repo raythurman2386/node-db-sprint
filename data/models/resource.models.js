@@ -15,7 +15,7 @@ function deleteResource(id) {
   return db('resource').where({ id }).del();
 }
 
-module.export = {
+module.exports = {
   getResources,
   addResource,
   deleteResource
