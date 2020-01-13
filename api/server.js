@@ -1,18 +1,16 @@
 const express = require('express');
 const middleware = require('./middleware');
-const router = require('./routes/index.routes');
+const projectRouter = require('./routes/projectRouter');
+const resourceRouter = require('./routes/resourceRouter');
+const taskRouter = require('./routes/taskRouter');
 
 const server = express();
+server.use(express.json());
 
 middleware(server);
-router(server);
 
-server.use((req, res, next) => {
-  return res.status(400).json({ message: "This is not the correct route!!!!" })
-});
-
-server.use((err, req, res, next) => {
-  return res.json({ message: 'Something has went very, very wrong.' })
-})
+server.use('/api/projects', projectRouter);
+server.use('/api/resources', resourceRouter);
+server.use('/api/tasks', taskRouter);
 
 module.exports = server;
