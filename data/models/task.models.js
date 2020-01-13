@@ -15,7 +15,7 @@ function deleteTask(id) {
   return db('task').where({ id }).del();
 }
 
-module.export = {
+module.exports = {
   getTask,
   addTask,
   deleteTask
