@@ -1,4 +1,4 @@
-const db = require('../../data/db-config');
+const db = require('../db-config');
 
 // Get Projects
 function getProjects() {
@@ -26,7 +26,7 @@ function deleteProject(id) {
   return db('projects').where({ id }).del();
 }
 
-module.export = {
+module.exports = {
   getProjects,
   getProjectById,
   addProject,
