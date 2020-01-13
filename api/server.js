@@ -9,6 +9,10 @@ server.use(cors());
 server.use(helmet());
 server.use(express.json());
 
+server.use('/', (req, res, next) => {
+  return res.status(200).json({ message: 'API Working' })
+})
+
 server.use((req, res, next) => {
   return res.status(400).json({ message: "This is not the correct route!!!!" })
 });
